@@ -18,7 +18,7 @@ from ActionsEstLoader import TSSTG
 #source = '../Data/test_video/test7.mp4'
 #source = '../Data/falldata/Home/Videos/video (2).avi'  # hard detect
 # source = '../Data/falldata/Home/Videos/video (1).avi'
-source = '1'
+source = '0'
 
 
 def preproc(image):
@@ -54,7 +54,7 @@ if __name__ == '__main__':
                         help='Show skeleton pose.')
     par.add_argument('--save_out', type=str, default='',
                         help='Save display to video file.')
-    par.add_argument('--device', type=str, default='cuda',
+    par.add_argument('--device', type=str, default='cpu',
                         help='Device to run model on cpu or cuda.')
     args = par.parse_args()
 
@@ -74,7 +74,7 @@ if __name__ == '__main__':
     tracker = Tracker(max_age=max_age, n_init=3)
 
     # Actions Estimate.
-    action_model = TSSTG()
+    action_model = TSSTG(device=device)
 
     resize_fn = ResizePadding(inp_dets, inp_dets)
 
